@@ -235,22 +235,23 @@ public class TabletService extends MySQLConnection implements DAOTablet<Tablet> 
     }
 
     private String makeSql(String sql, String brand, String os) {
-        sql += " WHERE ";
+        StringBuilder stringBuilderSql = new StringBuilder(sql);
+        stringBuilderSql.append(" WHERE ");
         int i = 1;
 
         if (!brand.equals("-")) {
-            sql +=  "brand = ?";
+            stringBuilderSql.append("brand = ?");
             i++;
         }
 
         if (!os.equals("-")) {
             if (i > 1) {
-                sql += " AND ";
+                stringBuilderSql.append(" AND ");
             }
-            sql +=  "os = ?";
+            stringBuilderSql.append("os = ?");
         }
 
-        return sql;
+        return stringBuilderSql.toString();
     }
 
 }

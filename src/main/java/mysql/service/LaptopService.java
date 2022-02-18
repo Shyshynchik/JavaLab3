@@ -247,30 +247,31 @@ public class LaptopService extends MySQLConnection implements DAOLaptop<Laptop> 
     }
 
     private String makeSql(String sql, String brand, String cpu, String videoCard) {
-        sql += " WHERE ";
+        StringBuilder stringBuilderSql = new StringBuilder(sql);
+        stringBuilderSql.append(" WHERE ");
         int i = 1;
 
         if (!brand.equals("-")) {
-            sql +=  "brand = ?";
+            stringBuilderSql.append("brand = ?");
             i++;
         }
 
         if (!cpu.equals("-")) {
             if (i > 1) {
-                sql += " AND ";
+                stringBuilderSql.append(" AND ");
             }
-            sql +=  "cpu = ?";
+            stringBuilderSql.append("cpu = ?");
             i++;
         }
 
         if (!videoCard.equals("-")) {
             if (i > 1) {
-                sql += " AND ";
+                stringBuilderSql.append(" AND ");
             }
-            sql +=  "video_card = ?";
+            stringBuilderSql.append("video_card = ?");
         }
 
-        return sql;
+        return stringBuilderSql.toString();
     }
 
 }
